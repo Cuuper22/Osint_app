@@ -9,11 +9,11 @@ Meme sound effects for your CLI sessions. Zero dependencies, pure Python stdlib.
 
 ## Why
 
-Terminals are silent by default. You stare at text, text stares back. I wanted my CLI sessions to have personality — a sound when something fails, a different sound when something works, a little whoosh while it's thinking.
+Terminals are silent by default. You stare at text, text stares back. I wanted my CLI sessions to have personality - a sound when something fails, a different sound when something works, a little whoosh while it's thinking.
 
 The constraint I set: zero dependencies. Every sound is synthesized from scratch using `math.sin()`, `struct.pack()`, and `wave.open()`. Three stdlib calls. That's the entire audio pipeline.
 
-The FAAH (error sound) is a descending sawtooth wave from 520Hz to 140Hz with increasing vibrato and soft clipping for that crunchy distortion feel. The ding is bell harmonics at A5 with an inharmonic 4.2x overtone — that's what makes it sound like a bell instead of an organ pipe. The whoosh is seeded random noise through a moving-average filter whose width sweeps across the duration.
+The FAAH (error sound) is a descending sawtooth wave from 520Hz to 140Hz with increasing vibrato and soft clipping for that crunchy distortion feel. The ding is bell harmonics at A5 with an inharmonic 4.2x overtone - that's what makes it sound like a bell instead of an organ pipe. The whoosh is seeded random noise through a moving-average filter whose width sweeps across the duration.
 
 Building audio synthesis from sine waves teaches you things about sound that no library can. Why does a bell sound different from an organ? Inharmonic overtone ratios. Why does a descending tone feel dramatic? The human ear tracks frequency sweeps as urgency signals. Why does filtered noise sound like wind? Because wind literally is filtered noise.
 
@@ -31,7 +31,15 @@ Every sound is synthesized from `math.sin()`, `struct.pack()`, and `wave.open()`
 
 <!-- TODO: Add waveform visualization of each sound -->
 
-*Waveform visualization — to be added.*
+*Waveform visualization - to be added.*
+
+## What To Inspect
+
+- `claude-sfx/sfx/generator.py` for the audio synthesis math.
+- `claude-sfx/sfx/player.py` for cross-platform playback and non-blocking behavior.
+- `claude-sfx/sfx/engine.py` for event-to-sound mapping.
+- `claude-sfx/sfx/config.py` for tiny persistent configuration without dependencies.
+- `claude-sfx/tests/` for the 62-test suite across synthesis, config, playback, and API behavior.
 
 ## Quick start
 
@@ -88,7 +96,7 @@ Event ("error")
   → player.py    detects platform audio, plays in background thread
 ```
 
-All sounds are WAV files (16-bit mono PCM, 22.05 kHz) generated at runtime. No bundled audio files — the math is the source.
+All sounds are WAV files (16-bit mono PCM, 22.05 kHz) generated at runtime. No bundled audio files - the math is the source.
 
 Platform detection chain: macOS `afplay` → Linux `pw-play`/`paplay`/`aplay`/`ffplay` → Windows `SoundPlayer` → terminal bell `\a` fallback.
 
@@ -119,7 +127,7 @@ Override location with `CLAUDE_SFX_CONFIG` env var.
 
 ## Testing
 
-62 tests across 6 modules. CI runs on every push — 9-matrix (Ubuntu, macOS, Windows × Python 3.10, 3.11, 3.12) plus mypy type checking.
+62 tests across 6 modules. CI runs on every push - 9-matrix (Ubuntu, macOS, Windows × Python 3.10, 3.11, 3.12) plus mypy type checking.
 
 ```bash
 cd claude-sfx && pytest
@@ -127,8 +135,8 @@ cd claude-sfx && pytest
 
 | Module | Tests | Covers |
 |--------|------:|--------|
-| test_sfx.py | 8 | Integration — WAV generation, config round-trips, toggle |
-| test_api.py | 15 | Public interface — `sfx.faah()`, `sfx.trigger()`, exports |
+| test_sfx.py | 8 | Integration - WAV generation, config round-trips, toggle |
+| test_api.py | 15 | Public interface - `sfx.faah()`, `sfx.trigger()`, exports |
 | test_config.py | 12 | Settings load/save, defaults, merge, corrupt JSON fallback |
 | test_engine.py | 11 | Event→sound mapping, enable/disable, blocking modes |
 | test_generator.py | 10 | WAV synthesis, format validation, fade, duration bounds |
@@ -159,4 +167,4 @@ MIT
 
 ---
 
-*Built with the same constraint-obsession as [ToaruOS-Arnold](https://github.com/Cuuper22/ToaruOS-Arnold) — artificial constraints make the engineering more interesting.*
+*Built with the same constraint-obsession as [ToaruOS-Arnold](https://github.com/Cuuper22/ToaruOS-Arnold) - artificial constraints make the engineering more interesting.*
