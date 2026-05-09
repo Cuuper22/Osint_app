@@ -29,10 +29,6 @@ Building audio synthesis from sine waves teaches you things about sound that no 
 
 Every sound is synthesized from `math.sin()`, `struct.pack()`, and `wave.open()`. No bundled audio files.
 
-<!-- TODO: Add waveform visualization of each sound -->
-
-*Waveform visualization - to be added.*
-
 ## What To Inspect
 
 - `claude-sfx/sfx/generator.py` for the audio synthesis math.
